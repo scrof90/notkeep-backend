@@ -1,46 +1,42 @@
-const Blog = require('../models/blog')
+const Note = require('../models/note');
 
-const initialBlogs = [
+const initialNotes = [
   {
-    title: 'Golden Troll',
-    author: 'O.S. Leshev',
-    url: 'http://golden.troll',
-    likes: 100,
+    title: 'HTML',
+    content: 'HTML is easy',
+    pinned: true
   },
   {
-    title: 'Rats',
-    author: 'G.N. Prikolov',
-    url: 'http://prikol.off',
-    likes: 13,
+    title: '',
+    content: 'Browser can execute only JavaScript',
+    pinned: false
   },
   {
-    title: 'Pigs',
-    author: 'E. Svinaryov',
-    url: 'http://svinar.nik',
-    likes: 0,
-  },
-]
+    title: 'Methods',
+    content: 'GET and POST are the most pinned methods of HTTP protocol',
+    pinned: false
+  }
+];
 
 const nonExistingId = async () => {
-  const blog = new Blog({
-    title: 'willremovethissoon',
-    author: 'tester',
-    url: 'http://localhost',
-    likes: '20',
-  })
-  await blog.save()
-  await blog.remove()
+  const note = new Note({
+    title: 'tester',
+    content: 'willremovethissoon',
+    pinned: true
+  });
+  await note.save();
+  await note.remove();
 
-  return blog._id.toString()
-}
+  return note._id.toString();
+};
 
-const blogsInDb = async () => {
-  const blogs = await Blog.find({})
-  return blogs.map((blog) => blog.toJSON())
-}
+const notesInDb = async () => {
+  const notes = await Note.find({});
+  return notes.map((Note) => Note.toJSON());
+};
 
 module.exports = {
-  initialBlogs,
+  initialNotes,
   nonExistingId,
-  blogsInDb,
-}
+  notesInDb
+};

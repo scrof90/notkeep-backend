@@ -1,0 +1,17 @@
+POST http://localhost:3003/api/notes
+Content-Type: application/json
+
+{
+  "title": "Golden Troll",
+  "content": "O.S. Leshyev",
+  "pinned": true
+}
+
+###
+POST http://localhost:3003/api/notes
+Content-Type: application/json
+
+{
+  "title": "O.S. Leshyev",
+  "pinned": false
+}
