@@ -35,7 +35,7 @@ describe('addition of a new Note', () => {
   test('a valid Note can be added ', async () => {
     const newNote = {
       title: 'test Note for testing',
-      author: 'tester',
+      content: 'tester',
       pinned: false
     };
 
@@ -56,17 +56,17 @@ describe('addition of a new Note', () => {
     };
 
     const request = await api.post('/api/notes').send(newNote);
-    expect(request.body.likes).toBe(0);
+    expect(request.body.title).toBe('');
   });
 
   test('if the pinned property is missing from the request, it will default to the value false', async () => {
     const newNote = {
       title: 'test Note for testing',
-      author: 'tester'
+      content: 'tester'
     };
 
     const request = await api.post('/api/notes').send(newNote);
-    expect(request.body.likes).toBe(0);
+    expect(request.body.pinned).toBe(false);
   });
 
   test('if content property is missing, the backend responds with status code 400 Bad Request', async () => {
@@ -98,10 +98,9 @@ describe('deletion of a Note', () => {
 
 describe('updating of a Note', () => {
   const updatedNote = {
-    title: 'Golden Troll',
-    author: 'O.S. Leshev',
-    pinned: 'http://golden.troll',
-    likes: 0
+    title: 'HTML',
+    content: 'HTML is easy',
+    pinned: false
   };
 
   test('succeeds with status code 200 OK if id is valid', async () => {
@@ -114,7 +113,8 @@ describe('updating of a Note', () => {
       .expect(200);
 
     expect(response.body.title).toBe(noteToUpdate.title);
-    expect(response.body.likes).toBe(updatedNote.likes);
+    expect(response.body.content).toBe(noteToUpdate.content);
+    expect(response.body.pinned).toBe(updatedNote.pinned);
   });
 
   test('succeeds with status code 200 OK and does not change the db if id is valid but is not in the db', async () => {

@@ -11,7 +11,7 @@ const noteSchema = new mongoose.Schema({
   },
   pinned: {
     type: Boolean,
-    default: 0
+    default: false
   }
 });
 

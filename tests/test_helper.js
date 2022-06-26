@@ -32,7 +32,7 @@ const nonExistingId = async () => {
 
 const notesInDb = async () => {
   const notes = await Note.find({});
-  return notes.map((Note) => Note.toJSON());
+  return notes.map((note) => note.toJSON());
 };
 
 module.exports = {
